@@ -120,7 +120,8 @@ while [ ${ubver} -lt ${MIN} ] || [ ${ubver} -gt ${MAX} ]; do
     echo
     read -p " please enter your preference: [${MIN}-${MAX}]: " ubver
 done
-
+cat ${WORKFILE}
+exit
 download_file=$(grep -w ^$ubver ${WORKFILE} | awk '{print $4}')           # filename of the iso to be downloaded
 download_location=$(grep -w ^$ubver ${WORKFILE} | awk '{print $3}')     # location of the file to be downloaded
 new_iso_name="ubuntu-$(grep -w ^$ubver ${WORKFILE} | awk '{print $2}')-server-amd64-unattended.iso" # filename of the new iso file to be created
@@ -135,20 +136,24 @@ else
 fi
 
 # ask the user questions about his/her preferences
-read -ep " please enter your preferred timezone: " -i "${timezone}" timezone
-read -ep " please enter your preferred username: " -i "netson" username
-read -sp " please enter your preferred password: " password
-printf "\n"
-read -sp " confirm your preferred password: " password2
-printf "\n"
-read -ep " Make ISO bootable via USB: " -i "yes" bootable
+username="ubuntu"
+timezone="Europe/Berlin"
+password="p4ubuntu!"
+bootable="yes"
+# read -ep " please enter your preferred timezone: " -i "${timezone}" timezone
+# read -ep " please enter your preferred username: " -i "ubuntu" username
+# read -sp " please enter your preferred password: " password
+# printf "\n"
+# read -sp " confirm your preferred password: " password2
+# printf "\n"
+# read -ep " Make ISO bootable via USB: " -i "yes" bootable
 
 # check if the passwords match to prevent headaches
-if [[ "$password" != "$password2" ]]; then
-    echo " your passwords do not match; please restart the script and try again"
-    echo
-    exit
-fi
+# if [[ "$password" != "$password2" ]]; then
+#     echo " your passwords do not match; please restart the script and try again"
+#     echo
+#     exit
+# fi
 
 # download the ubuntu iso. If it already exists, do not delete in the end.
 cd $tmp
@@ -166,10 +171,10 @@ if [[ ! -f $tmp/$download_file ]]; then
 fi
 
 # download netson seed file
-seed_file="netson.seed"
+seed_file="pingworks.seed"
 if [[ ! -f $tmp/$seed_file ]]; then
     echo -n " downloading $seed_file: "
-    download "https://raw.githubusercontent.com/netson/ubuntu-unattended/master/$seed_file"
+    download "https://raw.githubusercontent.com/birka/ubuntu-unattended/master/$seed_file"
 fi
 
 # install required packages
@@ -223,7 +228,7 @@ sed -i -r 's/timeout\s+[0-9]+/timeout 1/g' $tmp/iso_new/isolinux/isolinux.cfg
 
 # set late command
 
-   late_command="chroot /target curl -L -o /home/$username/start.sh https://raw.githubusercontent.com/netson/ubuntu-unattended/master/start.sh ;\
+   late_command="chroot /target curl -L -o /home/$username/start.sh https://raw.githubusercontent.com/pingworks/ubuntu-unattended/master/start.sh ;\
      chroot /target chmod +x /home/$username/start.sh ;"
 
 # copy the netson seed file to the iso
