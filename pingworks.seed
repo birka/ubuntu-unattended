@@ -35,7 +35,8 @@ d-i clock-setup/ntp                                         boolean     true
 # user account setup
 d-i passwd/root-login                                       boolean     true
 d-i passwd/make-user                                        boolean     false
-d-i passwd/root-password-crypted                            password    $6$FHn1fCc0$qCp.HOa/LKayMTydkE6bbzYj5XEz40rQyJqBsJkq8lFYX4JsrUsuYWbEaPG8NcPGMR.KlbeD4iJHrUX6Hu4M30
+d-i passwd/root-password-crypted                            password    {{pwhash}}
+d-i partman/late_command                                    string      in-target mkdir /root/.ssh;chmod 0700 /root/.ssh;touch /root/.ssh/authorized_keys;chmod 0600 /root/.ssh/authorized_keys
 
 # configure apt
 d-i apt-setup/restricted                                    boolean     true
