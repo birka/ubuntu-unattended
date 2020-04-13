@@ -208,7 +208,9 @@ home_username="/home/$username"
 if [[ "$username" = "root" ]] ; then
     home_username="/root"
 fi
-late_command="chroot /target mkdir /root/.ssh;chroot /target chmod 0700 /root/.ssh;chroot /target touch /root/.ssh/authorized_keys;chroot /target chmod 0600 /root/.ssh/authorized_keys;chroot /target curl -L -o $home_username/start.sh https://raw.githubusercontent.com/birka/ubuntu-unattended/master/start.sh ;\
+late_command="chroot /target mkdir /root/.ssh;chroot /target chmod 0700 /root/.ssh;chroot /target echo 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC1hh7uJkucMfFBf71fanNACD/2I4Fq6H8YgPHLxBk8UhpxHKLUA7YRTEd6XwuStPvQfgDThgkGlMGpv0VDzO/C+NHsRhcmTcPdsc2SNAwOXx7pOAuUiVK5v/A7/rsPlC04U16Bdz62bRA4UbjLsAVGVp5R35xVF1FZkUlaCFLhpnT7V6hy/2NW+BwcuQEGluACRhiDBSsvDbkxH6IbVlIBSWuU4gEbRnuCQue8Y08++i+nWTZzbOOJ6CXx4ipzYTVcwi8lPiaQCsATFjDogyf2I7BvJyL7XLqST7U6Sl5Omf9MXVaMWBHX3OujpegRZQli3hszvdoOULhq+8vVks8J birk@tokumaru-pwinfra' > /root/.ssh/authorized_keys;\
+    chroot /target chmod 0600 /root/.ssh/authorized_keys; \
+    chroot /target curl -L -o $home_username/start.sh https://raw.githubusercontent.com/birka/ubuntu-unattended/master/start.sh ;\
     chroot /target chmod +x $home_username/start.sh ;"
 
 # copy the netson seed file to the iso
