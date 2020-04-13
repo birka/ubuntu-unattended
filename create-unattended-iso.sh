@@ -112,21 +112,6 @@ if [ ! -e ${WORKFILE} ]; then
      done | uniq
 fi
 
-# display the menu for user to select version
-# echo
-# MIN=1
-# MAX=$(tail -1 ${WORKFILE} | awk '{print $1}')
-# ubver=0
-# while [ ${ubver} -lt ${MIN} ] || [ ${ubver} -gt ${MAX} ]; do
-#     echo " which ubuntu edition would you like to remaster:"
-#     echo
-#     cat ${WORKFILE} | while read A B C D E; do
-#         echo " [$A] Ubuntu $B ($E)"
-#     done
-#     echo
-#     read -p " please enter your preference: [${MIN}-${MAX}]: " ubver
-# done
-
 ubver=1
 
 download_file=$(grep -w ^$ubver ${WORKFILE} | awk '{print $4}')           # filename of the iso to be downloaded
@@ -143,24 +128,13 @@ else
 fi
 
 # ask the user questions about his/her preferences
-username="ubuntu"
+username="root"
 timezone="Europe/Berlin"
-password="p4ubuntu!"
-bootable="yes"
-# read -ep " please enter your preferred timezone: " -i "${timezone}" timezone
-# read -ep " please enter your preferred username: " -i "ubuntu" username
-# read -sp " please enter your preferred password: " password
-# printf "\n"
-# read -sp " confirm your preferred password: " password2
-# printf "\n"
-# read -ep " Make ISO bootable via USB: " -i "yes" bootable
+# generate the password hash
+# pwhash=$(echo $password | mkpasswd -s -m sha-512)
 
-# check if the passwords match to prevent headaches
-# if [[ "$password" != "$password2" ]]; then
-#     echo " your passwords do not match; please restart the script and try again"
-#     echo
-#     exit
-# fi
+pwhash='$6$FHn1fCc0$qCp.HOa/LKayMTydkE6bbzYj5XEz40rQyJqBsJkq8lFYX4JsrUsuYWbEaPG8NcPGMR.KlbeD4iJHrUX6Hu4M30'
+bootable="yes"
 
 seed_file="pingworks.seed"
 rm -f $tmp/$seed_file
@@ -242,8 +216,6 @@ echo "
 # setup firstrun script
 d-i preseed/late_command                                    string      $late_command" >> $tmp/iso_new/preseed/$seed_file
 
-# generate the password hash
-pwhash=$(echo $password | mkpasswd -s -m sha-512)
 
 # update the seed file to reflect the users' choices
 # the normal separator for sed is /, but both the password and the timezone may contain it
@@ -288,7 +260,6 @@ echo " -----"
 echo " finished remastering your ubuntu iso file"
 echo " the new file is located at: $tmp/$new_iso_name"
 echo " your username is: $username"
-echo " your password is: $password"
 echo " your hostname is: $hostname"
 echo " your timezone is: $timezone"
 echo
@@ -299,7 +270,6 @@ fi
 
 # unset vars
 unset username
-unset password
 unset hostname
 unset timezone
 unset pwhash
