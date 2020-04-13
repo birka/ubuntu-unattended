@@ -56,12 +56,7 @@ d-i pkgsel/update-policy                                    select      none
 d-i pkgsel/updatedb                                         boolean     true
 
 # disk partitioning
-d-i partman/early_command string \
-USBDEV=$(list-devices usb-partition | sed "s/\(.*\)./\1/");\
-BOOTDEV=$(list-devices disk | grep -v "$USBDEV" | head -1);\
-debconf-set partman-auto/disk $BOOTDEV;\
-debconf-set grub-installer/bootdev $BOOTDEV; \
-umount /media;
+d-i partman/early_command                                   string      umount /media;
 
 d-i partman/unmount_active                                  boolean     true
 d-i partman-auto/disk                                       string      /dev/discs/disc0/disc
@@ -101,7 +96,7 @@ d-i partman-partitioning/confirm_write_new_label            boolean     true
 
 # grub boot loader
 d-i grub-installer/only_debian                              boolean     true
-d-i grub-installer/with_other_os                            boolean     true
+# d-i grub-installer/with_other_os                            boolean     true
 
 # finish installation
 d-i finish-install/reboot_in_progress                       note
