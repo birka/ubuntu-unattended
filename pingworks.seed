@@ -59,10 +59,10 @@ d-i pkgsel/updatedb                                         boolean     true
 # d-i partman/early_command                                   string      if mount | grep media;then umount /media;fi
 d-i partman/unmount_active                                  boolean     true
 d-i partman-auto/disk                                       string      /dev/discs/disc0/disc
-d-i partman-auto/method                                     string      regular
-
-d-i partman-auto/expert_recipe                              string      boot-root-docker :: \
-                1024 512 100% linux-swap \
+# d-i partman-auto/method                                     string      regular
+d-i partman-auto/expert_recipe string \
+        root :: \
+                8192 8241 16384 linux-swap \
                         $primary{ } \
                         method{ swap } format{ } \
                 . \
@@ -72,11 +72,11 @@ d-i partman-auto/expert_recipe                              string      boot-roo
                         use_filesystem{ } filesystem{ ext4 } \
                         mountpoint{ / } \
                 . \
-                8192 20000 10000000 ext4 \
+                8192 8241 16384 ext4 \
                         $primary{ } \
                         method{ format } format{ } \
                         use_filesystem{ } filesystem{ ext4 } \
-                        mountpoint{ /var/lib/docker } \
+                        mountpoint{ /var } \
                 .
                 
 d-i partman/confirm_write_new_label                         boolean     true
