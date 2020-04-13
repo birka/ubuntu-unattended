@@ -64,17 +64,22 @@ d-i partman-auto/expert_recipe string \
       200 200 200 fat32                       \
          $primary{ }                          \
          method{ efi } format{ } .            \
-      1024 1024 1024 ext3                     \
+      1024 1030 2048 ext3                     \
          $primary{ } $bootable{ }             \
          method{ format } format{ }           \
          use_filesystem{ } filesystem{ ext3 } \
          mountpoint{ /boot } .                \
-      1024 20000 -1 ext4                      \
+      20480 20482 28678 ext4                  \
          $primary{ }                          \
          method{ format } format{ }           \
          use_filesystem{ } filesystem{ ext4 } \
          mountpoint{ / } .                    \
-      65536 65536 65536 linux-swap            \
+      20480 20482 -1 ext4                  \
+         $primary{ }                          \
+         method{ format } format{ }           \
+         use_filesystem{ } filesystem{ ext4 } \
+         mountpoint{} .                    \
+      512 512 100% linux-swap                 \
          $primary{ }                          \
          method{ swap } format{ } .
 d-i partman-basicfilesystems/no_mount_point boolean true
