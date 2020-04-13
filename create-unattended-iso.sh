@@ -179,9 +179,11 @@ fi
 
 # download pingworks seed file
 seed_file="pingworks.seed"
-rm -f $tmp/$seed_file
+rm -f $seed_file
 echo -n " downloading $seed_file: "
 download "https://raw.githubusercontent.com/birka/ubuntu-unattended/master/$seed_file"
+echo $seed_file
+cat $seed_file
 
 # install required packages
 echo " installing required packages"
