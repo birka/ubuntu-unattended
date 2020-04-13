@@ -3,7 +3,7 @@
 ubuntu_version="18.04.4"
 
 # file names & paths
-tmp="$HOME"  # destination folder to store the final iso file
+tmp="/var/tmp"  # destination folder to store the final iso file
 hostname="ubuntu"
 currentuser="$( whoami)"
 
@@ -175,7 +175,7 @@ if [[ ! -f $tmp/$download_file ]]; then
     exit 1
 fi
 
-# download netson seed file
+# download pingworks seed file
 seed_file="pingworks.seed"
 if [[ ! -f $tmp/$seed_file ]]; then
     echo -n " downloading $seed_file: "
