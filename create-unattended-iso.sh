@@ -161,7 +161,8 @@ bootable="yes"
 #     echo
 #     exit
 # fi
-
+rm -f $tmp/pingworks.seed
+cp pingworks.seed $tmp/
 # download the ubuntu iso. If it already exists, do not delete in the end.
 cd $tmp
 if [[ ! -f $tmp/$download_file ]]; then
@@ -176,15 +177,6 @@ if [[ ! -f $tmp/$download_file ]]; then
     echo "Then run this script again."
     exit 1
 fi
-
-# download pingworks seed file
-seed_file="pingworks.seed"
-rm -f $seed_file
-echo -n " downloading $seed_file: "
-download "https://raw.githubusercontent.com/birka/ubuntu-unattended/master/$seed_file"
-pwd
-echo $seed_file
-cat $seed_file
 
 # install required packages
 echo " installing required packages"
