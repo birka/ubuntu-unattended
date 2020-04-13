@@ -66,13 +66,13 @@ d-i partman-auto/expert_recipe string \
                         $primary{ } \
                         method{ swap } format{ } \
                 . \
-                16384 16386 -1 ext4 \
+                16384 16386 20480 ext4 \
                         $primary{ } $bootable{ } \
                         method{ format } format{ } \
                         use_filesystem{ } filesystem{ ext4 } \
                         mountpoint{ / } \
                 . \
-                8192 8241 16384 ext4 \
+                8192 8241 -1 ext4 \
                         $primary{ } \
                         method{ format } format{ } \
                         use_filesystem{ } filesystem{ ext4 } \
