@@ -86,10 +86,7 @@ fi
 if [ ! -e ${WORKFILE} ]; then
      echo Building menu from available builds
      for version in $(wget -qO - http://cdimage.ubuntu.com/releases/ | grep -w DIR | grep -oP href=\"[0-9].* | cut -d'"' -f2 | tr -d '/'); do
-        echo $version
-        if [[ "$version" != "$ubuntu_version" ]] ; then
-            echo "Skipping version..."
-        else
+        if [[ "$version" = "$ubuntu_version" ]] ; then
             TITLE=$(wget -qO - http://cdimage.ubuntu.com/releases/${version}/release | grep h1 | sed s'/^ *//g' | sed s'/^.*\(Ubuntu.*\).*$/\1/' | sed s'|</h1>||g')
             CODE=$(echo ${TITLE} | cut -d "(" -f2 | tr -d ")")
             URL=http://releases.ubuntu.com/${version}/
