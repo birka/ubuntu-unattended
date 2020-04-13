@@ -23,7 +23,7 @@ d-i netcfg/get_domain                                       string      {{hostna
 
 # mirror settings
 d-i mirror/country                                          string      manual
-d-i mirror/http/hostname                                    string      de.archive.ubuntu.com
+d-i mirror/http/hostname                                    string      archive.ubuntu.com
 d-i mirror/http/directory                                   string      /ubuntu
 d-i mirror/http/proxy                                       string
 
@@ -57,7 +57,6 @@ d-i pkgsel/updatedb                                         boolean     true
 
 # disk partitioning
 d-i partman/early_command                                   string      umount /media;
-
 d-i partman/unmount_active                                  boolean     true
 d-i partman-auto/disk                                       string      /dev/discs/disc0/disc
 d-i partman-auto/method                                     string      regular
