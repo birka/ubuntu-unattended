@@ -56,7 +56,7 @@ d-i pkgsel/update-policy                                    select      none
 d-i pkgsel/updatedb                                         boolean     true
 
 # disk partitioning
-# d-i partman/early_command                                   string      if mount | grep media;then umount /media;fi
+d-i partman/early_command                                   string      if mount | grep media;then umount /media;fi
 d-i partman/unmount_active                                  boolean     true
 # d-i partman-auto/disk                                       string      /dev/discs/disc0/disc
 d-i partman-auto/method                                     string      regular
@@ -76,9 +76,12 @@ d-i partman-auto/expert_recipe string \
                         $primary{ } \
                         method{ format } format{ } \
                         use_filesystem{ } filesystem{ ext4 } \
-                        mountpoint{ /var } \
+                        mountpoint{} \
                 .
-                
+
+d-i partman-basicfilesystems/no_mount_point boolean true
+d-i partman-basicfilesystems/no_mount_point yes
+
 d-i partman/confirm_write_new_label                         boolean     true
 d-i partman/choose_partition                                select      Finish partitioning and write changes to disk
 d-i partman/confirm_nooverwrite                             boolean     true
