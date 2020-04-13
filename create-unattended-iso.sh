@@ -161,8 +161,10 @@ bootable="yes"
 #     echo
 #     exit
 # fi
-rm -f $tmp/pingworks.seed
-cp pingworks.seed $tmp/
+
+seed_file="pingworks.seed"
+rm -f $tmp/$seed_file
+cp $seed_file $tmp/
 # download the ubuntu iso. If it already exists, do not delete in the end.
 cd $tmp
 if [[ ! -f $tmp/$download_file ]]; then
