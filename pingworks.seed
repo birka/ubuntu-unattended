@@ -62,18 +62,23 @@ d-i partman-auto/disk                                       string      /dev/dis
 d-i partman-auto/method                                     string      regular
 
 d-i partman-auto/expert_recipe                              string      boot-root :: \
-       40 50 100 ext3                             \
+       2000 50 2000 ext2                          \
           $primary{ } $bootable{ }                \
           method{ format } format{ }              \
           use_filesystem{ } filesystem{ ext2 }    \
           mountpoint{ /boot }                     \
        .                                          \
-       500 10000 1000000000 ext3                  \
+       40000 10000 40000 ext4                     \
           method{ format } format{ }              \
           use_filesystem{ } filesystem{ ext4 }    \
           mountpoint{ / }                         \
        .                                          \
-       64 512 300% linux-swap                     \
+       20000 9999 10000000000 ext4                \
+          method{ format } format{ }              \
+          use_filesystem{ } filesystem{ ext4 }    \
+          mountpoint{ /var/lib/docker }           \
+       .                                          \
+       1000 512 200% linux-swap                   \
           method{ swap } format{ }                \
        .
 
