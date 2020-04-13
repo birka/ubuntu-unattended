@@ -4,6 +4,8 @@ ubuntu_version="18.04.4"
 
 # file names & paths
 tmp="/var/tmp"  # destination folder to store the final iso file
+additional_dest_folder="/mnt/ubuntu-iso-creator"
+
 hostname="ubuntu"
 currentuser="$( whoami)"
 
@@ -294,6 +296,10 @@ echo " your password is: $password"
 echo " your hostname is: $hostname"
 echo " your timezone is: $timezone"
 echo
+
+if [ -d $additional_dest_folder ] ; then
+    cp $tmp/$new_iso_name $additional_dest_folder/$new_iso_name
+fi
 
 # unset vars
 unset username
