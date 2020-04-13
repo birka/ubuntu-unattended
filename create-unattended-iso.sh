@@ -204,9 +204,12 @@ sed -i -r 's/timeout\s+[0-9]+/timeout 1/g' $tmp/iso_new/isolinux/isolinux.cfg
 
 
 # set late command
-
-   late_command="chroot /target curl -L -o /home/$username/start.sh https://raw.githubusercontent.com/birka/ubuntu-unattended/master/start.sh ;\
-     chroot /target chmod +x /home/$username/start.sh ;"
+home_username="/home/$username"
+if [[ "$username" = "root" ]] ; then
+    home_username="/root"
+fi
+late_command="chroot /target mkdir /root/.ssh;chroot /target chmod 0700 /root/.ssh;chroot /target touch /root/.ssh/authorized_keys;chroot /target chmod 0600 /root/.ssh/authorized_keys;chroot /target curl -L -o $home_username/start.sh https://raw.githubusercontent.com/birka/ubuntu-unattended/master/start.sh ;\
+    chroot /target chmod +x $home_username/start.sh ;"
 
 # copy the netson seed file to the iso
 cp -rT $tmp/$seed_file $tmp/iso_new/preseed/$seed_file
