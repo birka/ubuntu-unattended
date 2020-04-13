@@ -58,8 +58,8 @@ d-i pkgsel/updatedb                                         boolean     true
 # disk partitioning
 # d-i partman/early_command                                   string      if mount | grep media;then umount /media;fi
 d-i partman/unmount_active                                  boolean     true
-d-i partman-auto/disk                                       string      /dev/discs/disc0/disc
-# d-i partman-auto/method                                     string      regular
+# d-i partman-auto/disk                                       string      /dev/discs/disc0/disc
+d-i partman-auto/method                                     string      regular
 d-i partman-auto/expert_recipe string \
         root :: \
                 8192 8241 16384 linux-swap \
