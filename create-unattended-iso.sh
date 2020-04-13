@@ -182,6 +182,7 @@ seed_file="pingworks.seed"
 rm -f $seed_file
 echo -n " downloading $seed_file: "
 download "https://raw.githubusercontent.com/birka/ubuntu-unattended/master/$seed_file"
+pwd
 echo $seed_file
 cat $seed_file
 
