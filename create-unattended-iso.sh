@@ -114,22 +114,22 @@ if [ ! -e ${WORKFILE} ]; then
 fi
 
 # display the menu for user to select version
-echo
-MIN=1
-MAX=$(tail -1 ${WORKFILE} | awk '{print $1}')
-ubver=0
-while [ ${ubver} -lt ${MIN} ] || [ ${ubver} -gt ${MAX} ]; do
-    echo " which ubuntu edition would you like to remaster:"
-    echo
-    cat ${WORKFILE} | while read A B C D E; do
-        echo " [$A] Ubuntu $B ($E)"
-    done
-    echo
-    read -p " please enter your preference: [${MIN}-${MAX}]: " ubver
-done
+# echo
+# MIN=1
+# MAX=$(tail -1 ${WORKFILE} | awk '{print $1}')
+# ubver=0
+# while [ ${ubver} -lt ${MIN} ] || [ ${ubver} -gt ${MAX} ]; do
+#     echo " which ubuntu edition would you like to remaster:"
+#     echo
+#     cat ${WORKFILE} | while read A B C D E; do
+#         echo " [$A] Ubuntu $B ($E)"
+#     done
+#     echo
+#     read -p " please enter your preference: [${MIN}-${MAX}]: " ubver
+# done
 
-cat ${WORKFILE}
-exit
+ubver=1
+
 download_file=$(grep -w ^$ubver ${WORKFILE} | awk '{print $4}')           # filename of the iso to be downloaded
 download_location=$(grep -w ^$ubver ${WORKFILE} | awk '{print $3}')     # location of the file to be downloaded
 new_iso_name="ubuntu-$(grep -w ^$ubver ${WORKFILE} | awk '{print $2}')-server-amd64-unattended.iso" # filename of the new iso file to be created
