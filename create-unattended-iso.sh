@@ -3,7 +3,7 @@
 ubuntu_version="18.04.4"
 
 # file names & paths
-tmp="/var/tmp"  # destination folder to store the final iso file
+tmp="/mnt/ubuntu-iso-creator"  # destination folder to store the final iso file
 hostname="ubuntu"
 currentuser="$( whoami)"
 
