@@ -1,4 +1,11 @@
 #!/usr/bin/env bash
+hostname="node01"
+domainname="k8s.la.pingworks.net"
+ipv4_address="192.168.22.3"
+ipv4_network="255.255.255.0"
+ipv4_gateway="192.168.22.2"
+dns_servers="192.168.22.2"
+dns_search="k8s.la.pingworks.net la.pingworks.net pingworks.net"
 
 #ubuntu_version="18.04.4"
 ubuntu_version="20.04"
@@ -7,7 +14,6 @@ ubuntu_version="20.04"
 tmp="/var/tmp"  # destination folder to store the final iso file
 additional_dest_folder="/mnt/ubuntu-iso-creator"
 
-hostname="ubuntu"
 currentuser="$( whoami)"
 
 # define spinner function for slow tasks
@@ -239,6 +245,12 @@ d-i preseed/late_command                                    string      $late_co
 sed -i "s@{{username}}@$username@g" $tmp/iso_new/preseed/$seed_file
 sed -i "s@{{pwhash}}@$pwhash@g" $tmp/iso_new/preseed/$seed_file
 sed -i "s@{{hostname}}@$hostname@g" $tmp/iso_new/preseed/$seed_file
+sed -i "s@{{domainname}}@$domainname@g" $tmp/iso_new/preseed/$seed_file
+sed -i "s@{{ipv4_address}}@$ipv4_address@g" $tmp/iso_new/preseed/$seed_file
+sed -i "s@{{ipv4_network}}@$ipv4_network@g" $tmp/iso_new/preseed/$seed_file
+sed -i "s@{{ipv4_gateway}}@$ipv4_gateway@g" $tmp/iso_new/preseed/$seed_file
+sed -i "s@{{dns_servers}}@$dns_servers@g" $tmp/iso_new/preseed/$seed_file
+sed -i "s@{{dns_search}}@$dns_search@g" $tmp/iso_new/preseed/$seed_file
 sed -i "s@{{timezone}}@$timezone@g" $tmp/iso_new/preseed/$seed_file
 
 # remove unwanted efi boot loader and copy the good one over...
