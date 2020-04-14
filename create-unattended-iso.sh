@@ -242,7 +242,6 @@ sed -i "s@{{hostname}}@$hostname@g" $tmp/iso_new/preseed/$seed_file
 sed -i "s@{{timezone}}@$timezone@g" $tmp/iso_new/preseed/$seed_file
 
 # remove unwanted efi boot loader
-rm -f $tmp/iso_new/EFI/BOOT/BOOTx64.EFI
 rm -f $tmp/iso_new/EFI/BOOT/mmx64.efi
 
 # calculate checksum for seed file
