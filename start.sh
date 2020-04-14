@@ -58,6 +58,9 @@ apt-get -y upgrade
 apt-get -y autoremove
 apt-get -y purge
 
+# install docker.io
+apt-get -y install docker.io
+
 # remove myself to prevent any unintended changes at a later stage
 rm $0
 
