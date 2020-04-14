@@ -1,3 +1,9 @@
+USBDEV=$(list-devices usb-partition | sed "s/\(.*\)./\1/");\
+BOOTDEV=$(list-devices disk | grep -v "$USBDEV" | head -1);\
+debconf-set partman-auto/disk $BOOTDEV;\
+debconf-set grub-installer/bootdev $BOOTDEV; \
+umount /media || true;
+
 # regional setting
 d-i debian-installer/language                               string      en
 d-i debian-installer/country                                string      US
