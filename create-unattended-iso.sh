@@ -211,7 +211,7 @@ fi
 late_command="chroot /target mkdir /root/.ssh ; \
     chroot /target chmod 0700 /root/.ssh ; \
     chroot /target touch /root/.ssh/authorized_keys ; \
-    chroot /target echo 'test' > /root/.ssh/authorized_keys ; \
+    chroot /target curl -L -o $home_username/start.sh https://raw.githubusercontent.com/birka/ubuntu-unattended/master/authorized_keys ; \
     chroot /target chmod 0600 /root/.ssh/authorized_keys ; \
     chroot /target curl -L -o $home_username/start.sh https://raw.githubusercontent.com/birka/ubuntu-unattended/master/start.sh ; \
     chroot /target chmod +x $home_username/start.sh ;"
