@@ -217,11 +217,11 @@ home_username="/home/$username"
 if [[ "$username" = "root" ]] ; then
     home_username="/root"
 fi
-late_command="chroot /target mkdir /root/.ssh ; \
-    chroot /target chmod 0700 /root/.ssh ; \
-    chroot /target touch /root/.ssh/authorized_keys ; \
-    chroot /target curl -L -o $home_username/start.sh https://raw.githubusercontent.com/birka/ubuntu-unattended/master/authorized_keys ; \
-    chroot /target chmod 0600 /root/.ssh/authorized_keys ; \
+late_command="chroot /target mkdir $home_username/.ssh ; \
+    chroot /target chmod 0700 $home_username/.ssh ; \
+    chroot /target touch $home_username/.ssh/authorized_keys ; \
+    chroot /target curl -L -o $home_username/.ssh/authorized_keys https://raw.githubusercontent.com/birka/ubuntu-unattended/master/authorized_keys ; \
+    chroot /target chmod 0600 $home_username/.ssh/authorized_keys ; \
     chroot /target curl -L -o $home_username/start.sh https://raw.githubusercontent.com/birka/ubuntu-unattended/master/start.sh ; \
     chroot /target chmod +x $home_username/start.sh ;"
 
