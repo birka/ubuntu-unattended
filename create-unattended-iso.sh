@@ -208,9 +208,12 @@ home_username="/home/$username"
 if [[ "$username" = "root" ]] ; then
     home_username="/root"
 fi
-late_command="chroot /target mkdir /root/.ssh;chroot /target chmod 0700 /root/.ssh; chroot /target echo 'test' | tee -a /root/.ssh/authorized_keys; \
-    chroot /target chmod 0600 /root/.ssh/authorized_keys; \
-    chroot /target curl -L -o $home_username/start.sh https://raw.githubusercontent.com/birka/ubuntu-unattended/master/start.sh ;\
+late_command="chroot /target mkdir /root/.ssh ; \
+    chroot /target chmod 0700 /root/.ssh ; \
+    chroot /target touch /root/.ssh/authorized_keys ; \
+    chroot /target echo 'test' > /root/.ssh/authorized_keys ; \
+    chroot /target chmod 0600 /root/.ssh/authorized_keys ; \
+    chroot /target curl -L -o $home_username/start.sh https://raw.githubusercontent.com/birka/ubuntu-unattended/master/start.sh ; \
     chroot /target chmod +x $home_username/start.sh ;"
 
 # copy the netson seed file to the iso
@@ -218,7 +221,6 @@ cp -rT $tmp/$seed_file $tmp/iso_new/preseed/$seed_file
 
 # include firstrun script
 echo "
-# setup firstrun script
 d-i preseed/late_command                                    string      $late_command" >> $tmp/iso_new/preseed/$seed_file
 
 
