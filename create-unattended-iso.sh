@@ -241,8 +241,10 @@ sed -i "s@{{pwhash}}@$pwhash@g" $tmp/iso_new/preseed/$seed_file
 sed -i "s@{{hostname}}@$hostname@g" $tmp/iso_new/preseed/$seed_file
 sed -i "s@{{timezone}}@$timezone@g" $tmp/iso_new/preseed/$seed_file
 
-# remove unwanted efi boot loader
+# remove unwanted efi boot loader and copy the good one over...
 rm -f $tmp/iso_new/EFI/BOOT/mmx64.efi
+rm -f $tmp/iso_new/EFI/BOOT/BOOTx64.EFI
+cp $tmp/iso_new/EFI/BOOT/grubx64.efi $tmp/iso_new/EFI/BOOT/BOOTx64.EFI
 
 # calculate checksum for seed file
 seed_checksum=$(md5sum $tmp/iso_new/preseed/$seed_file)
