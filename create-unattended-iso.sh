@@ -5,7 +5,6 @@ ipv4_address="192.168.22.3"
 ipv4_network="255.255.255.0"
 ipv4_gateway="192.168.22.2"
 dns_servers="192.168.22.2"
-dns_search="k8s.la.pingworks.net la.pingworks.net pingworks.net"
 
 #ubuntu_version="18.04.4"
 ubuntu_version="20.04"
