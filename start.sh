@@ -27,6 +27,22 @@ fi
 # print status message
 echo " preparing your server; this may take a few minutes ..."
 
+# create mountpoint for docker
+[ -d /var/lib/docker ] || mkdir -p /var/lib/docker
+
+# detect free partition
+FREE_UNMOUNTED_PART=""
+for P in $(fdisk -l /dev/sda | grep 'Linux filesystem' | awk '{print $1;}');do
+    if mount | grep $P;then
+        echo 'Partition $P already mounted - skipping...'
+    else
+        echo 'Partition $P is free and unmounted - using it.'
+        FREE_UNMOUNTED_PART=$P
+    fi
+done
+mount $FREE_UNMOUNTED_PART /var/lib/docker
+echo "$FREE_UNMOUNTED_PART	/var/lib/docker	ext4	defaults	0	0" >> /etc/fstab
+
 # set fqdn
 fqdn="$hostname.$domain"
 
