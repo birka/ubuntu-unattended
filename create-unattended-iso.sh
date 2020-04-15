@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-hostname="node02"
+hostname="node03"
 domainname="k8s.la.pingworks.net"
-ipv4_address="192.168.22.102"
+ipv4_address="192.168.22.103"
 ipv4_network="255.255.255.0"
 ipv4_gateway="192.168.22.2"
 dns_servers="192.168.22.2"
