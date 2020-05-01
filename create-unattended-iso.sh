@@ -78,57 +78,57 @@ esac
 # get the latest versions of Ubuntu LTS
 # COMMENT IN after 20.04 release
 
-# tmphtml=$tmp/tmphtml
-# rm $tmphtml >/dev/null 2>&1
-# wget -O $tmphtml 'http://releases.ubuntu.com/' >/dev/null 2>&1
+tmphtml=$tmp/tmphtml
+rm $tmphtml >/dev/null 2>&1
+wget -O $tmphtml 'http://releases.ubuntu.com/' >/dev/null 2>&1
 
-# # create the menu based on available versions from
-# # http://cdimage.ubuntu.com/releases/
-# # http://releases.ubuntu.com/
+# create the menu based on available versions from
+# http://cdimage.ubuntu.com/releases/
+# http://releases.ubuntu.com/
 
-# WORKFILE=www.list
-# EXCLUDE_LIST='torrent|zsync|live'
-# COUNTER=1
-# if [ ! -z $1 ] && [ $1 == "rebuild" ]; then
-#     rm -f ${WORKFILE}
-# fi
-# if [ ! -e ${WORKFILE} ]; then
-#      echo Building menu from available builds
-#      for version in $(wget -qO - http://cdimage.ubuntu.com/releases/ | grep -w DIR | grep -oP href=\"[0-9].* | cut -d'"' -f2 | tr -d '/'); do
-#         if [[ "$version" = "$ubuntu_version" ]] ; then
-#             TITLE=$(wget -qO - http://cdimage.ubuntu.com/releases/${version}/release | grep h1 | sed s'/^ *//g' | sed s'/^.*\(Ubuntu.*\).*$/\1/' | sed s'|</h1>||g')
-#             CODE=$(echo ${TITLE} | cut -d "(" -f2 | tr -d ")")
-#             URL=http://releases.ubuntu.com/${version}/
-#             wget -qO - ${URL} | grep server | grep amd64 | egrep -v ${EXCLUDE_LIST} > /dev/null
-#             if [ $? -ne 0 ] ; then
-#                 URL=http://cdimage.ubuntu.com/releases/${version}/release/
-#             fi
-#             FILE=$(wget -qO - ${URL} | grep server-amd64 | grep -o ubuntu.*.iso | egrep -v ${EXCLUDE_LIST} | grep ">" | cut -d ">" -f2 | sort -u)
-#             FILE=$(echo ${FILE} | tr "\n" " " | tr "\r" " ")
-#             if [[ ! -z ${FILE} ]]; then
-#                 echo ${TITLE}
-#                 for iso in ${FILE}; do
-#                     ver=$(echo ${iso} | cut -d- -f2)
-#                     if [ ! -e ${WORKFILE} ] || ! grep -q "${ver} " ${WORKFILE}; then
-#                         echo "${COUNTER} ${ver} ${URL} ${iso} \"${CODE}\"" >> ${WORKFILE}
-#                         ((COUNTER++))
-#                     fi
-#                 done
-#             fi
-#         fi
-#      done | uniq
-# fi
+WORKFILE=www.list
+EXCLUDE_LIST='torrent|zsync|live'
+COUNTER=1
+if [ ! -z $1 ] && [ $1 == "rebuild" ]; then
+    rm -f ${WORKFILE}
+fi
+if [ ! -e ${WORKFILE} ]; then
+     echo Building menu from available builds
+     for version in $(wget -qO - http://cdimage.ubuntu.com/releases/ | grep -w DIR | grep -oP href=\"[0-9].* | cut -d'"' -f2 | tr -d '/'); do
+        if [[ "$version" = "$ubuntu_version" ]] ; then
+            TITLE=$(wget -qO - http://cdimage.ubuntu.com/releases/${version}/release | grep h1 | sed s'/^ *//g' | sed s'/^.*\(Ubuntu.*\).*$/\1/' | sed s'|</h1>||g')
+            CODE=$(echo ${TITLE} | cut -d "(" -f2 | tr -d ")")
+            URL=http://releases.ubuntu.com/${version}/
+            wget -qO - ${URL} | grep server | grep amd64 | egrep -v ${EXCLUDE_LIST} > /dev/null
+            if [ $? -ne 0 ] ; then
+                URL=http://cdimage.ubuntu.com/releases/${version}/release/
+            fi
+            FILE=$(wget -qO - ${URL} | grep server-amd64 | grep -o ubuntu.*.iso | egrep -v ${EXCLUDE_LIST} | grep ">" | cut -d ">" -f2 | sort -u)
+            FILE=$(echo ${FILE} | tr "\n" " " | tr "\r" " ")
+            if [[ ! -z ${FILE} ]]; then
+                echo ${TITLE}
+                for iso in ${FILE}; do
+                    ver=$(echo ${iso} | cut -d- -f2)
+                    if [ ! -e ${WORKFILE} ] || ! grep -q "${ver} " ${WORKFILE}; then
+                        echo "${COUNTER} ${ver} ${URL} ${iso} \"${CODE}\"" >> ${WORKFILE}
+                        ((COUNTER++))
+                    fi
+                done
+            fi
+        fi
+     done | uniq
+fi
 
-# ubver=1
+ubver=1
 
-# download_file=$(grep -w ^$ubver ${WORKFILE} | awk '{print $4}')           # filename of the iso to be downloaded
-# download_location=$(grep -w ^$ubver ${WORKFILE} | awk '{print $3}')     # location of the file to be downloaded
-# new_iso_name="ubuntu-$(grep -w ^$ubver ${WORKFILE} | awk '{print $2}')-server-amd64-unattended.iso" # filename of the new iso file to be created
+download_file=$(grep -w ^$ubver ${WORKFILE} | awk '{print $4}')           # filename of the iso to be downloaded
+download_location=$(grep -w ^$ubver ${WORKFILE} | awk '{print $3}')     # location of the file to be downloaded
+new_iso_name="ubuntu-$(grep -w ^$ubver ${WORKFILE} | awk '{print $2}')-server-amd64-unattended.iso" # filename of the new iso file to be created
 # ---
 
 # COMMENT OUT after 20.04 release
-download_file="ubuntu-20.04-server-amd64.iso"
-new_iso_name="ubuntu-20.04-server-amd64-unattended.iso"
+# download_file="ubuntu-20.04-server-amd64.iso"
+# new_iso_name="ubuntu-20.04-server-amd64-unattended.iso"
 # ----
 
 
