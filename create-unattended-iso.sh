@@ -114,10 +114,23 @@ if [ ! -e ${WORKFILE} ]; then
                 fi
             done
         fi
-    done | uniq
+     done | uniq
 fi
-exit 0
-ubver=1
+
+# display the menu for user to select version
+echo
+MIN=1
+MAX=$(tail -1 ${WORKFILE} | awk '{print $1}')
+ubver=0
+while [ ${ubver} -lt ${MIN} ] || [ ${ubver} -gt ${MAX} ]; do
+    echo " which ubuntu edition would you like to remaster:"
+    echo
+    cat ${WORKFILE} | while read A B C D E; do
+        echo " [$A] Ubuntu $B ($E)"
+    done
+    echo
+    read -p " please enter your preference: [${MIN}-${MAX}]: " ubver
+done
 
 download_file=$(grep -w ^$ubver ${WORKFILE} | awk '{print $4}')           # filename of the iso to be downloaded
 download_location=$(grep -w ^$ubver ${WORKFILE} | awk '{print $3}')     # location of the file to be downloaded
