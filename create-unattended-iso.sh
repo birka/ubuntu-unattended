@@ -104,6 +104,7 @@ if [ ! -e ${WORKFILE} ]; then
         fi
         FILE=$(wget -qO - ${URL} | grep server-amd64 | grep -o ubuntu.*.iso | egrep -v ${EXCLUDE_LIST} | grep ">" | cut -d ">" -f2 | sort -u)
         FILE=$(echo ${FILE} | tr "\n" " " | tr "\r" " ")
+        echo "FILE:$FILE"
         if [[ ! -z ${FILE} ]]; then
             echo ${TITLE}
             for iso in ${FILE}; do
