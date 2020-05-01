@@ -118,7 +118,7 @@ if [ ! -e ${WORKFILE} ]; then
 fi
 
 # display the menu for user to select version
-echo
+echo hier
 MIN=1
 MAX=$(tail -1 ${WORKFILE} | awk '{print $1}')
 ubver=0
@@ -141,7 +141,6 @@ new_iso_name="ubuntu-$(grep -w ^$ubver ${WORKFILE} | awk '{print $2}')-server-am
 # download_file="ubuntu-20.04-server-amd64.iso"
 # new_iso_name="ubuntu-20.04-server-amd64-unattended.iso"
 # ----
-
 
 if [ -f /etc/timezone ]; then
   timezone=`cat /etc/timezone`
