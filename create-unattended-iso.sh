@@ -7,7 +7,7 @@ ipv4_gateway="192.168.22.2"
 dns_servers="192.168.22.2"
 
 #ubuntu_version="18.04.4"
-ubuntu_version="20.04"
+#ubuntu_version="20.04"
 
 # file names & paths
 tmp="/var/tmp"  # destination folder to store the final iso file
