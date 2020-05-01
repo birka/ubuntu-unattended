@@ -95,30 +95,28 @@ fi
 if [ ! -e ${WORKFILE} ]; then
      echo Building menu from available builds
      for version in $(wget -qO - http://cdimage.ubuntu.com/releases/ | grep -w DIR | grep -oP href=\"[0-9].* | cut -d'"' -f2 | tr -d '/'); do
-        if [[ "$version" = "$ubuntu_version" ]] ; then
-            TITLE=$(wget -qO - http://cdimage.ubuntu.com/releases/${version}/release | grep h1 | sed s'/^ *//g' | sed s'/^.*\(Ubuntu.*\).*$/\1/' | sed s'|</h1>||g')
-            CODE=$(echo ${TITLE} | cut -d "(" -f2 | tr -d ")")
-            URL=http://releases.ubuntu.com/${version}/
-            wget -qO - ${URL} | grep server | grep amd64 | egrep -v ${EXCLUDE_LIST} > /dev/null
-            if [ $? -ne 0 ] ; then
-                URL=http://cdimage.ubuntu.com/releases/${version}/release/
-            fi
-            FILE=$(wget -qO - ${URL} | grep server-amd64 | grep -o ubuntu.*.iso | egrep -v ${EXCLUDE_LIST} | grep ">" | cut -d ">" -f2 | sort -u)
-            FILE=$(echo ${FILE} | tr "\n" " " | tr "\r" " ")
-            if [[ ! -z ${FILE} ]]; then
-                echo ${TITLE}
-                for iso in ${FILE}; do
-                    ver=$(echo ${iso} | cut -d- -f2)
-                    if [ ! -e ${WORKFILE} ] || ! grep -q "${ver} " ${WORKFILE}; then
-                        echo "${COUNTER} ${ver} ${URL} ${iso} \"${CODE}\"" >> ${WORKFILE}
-                        ((COUNTER++))
-                    fi
-                done
-            fi
+        TITLE=$(wget -qO - http://cdimage.ubuntu.com/releases/${version}/release | grep h1 | sed s'/^ *//g' | sed s'/^.*\(Ubuntu.*\).*$/\1/' | sed s'|</h1>||g')
+        CODE=$(echo ${TITLE} | cut -d "(" -f2 | tr -d ")")
+        URL=http://releases.ubuntu.com/${version}/
+        wget -qO - ${URL} | grep server | grep amd64 | egrep -v ${EXCLUDE_LIST} > /dev/null
+        if [ $? -ne 0 ] ; then
+            URL=http://cdimage.ubuntu.com/releases/${version}/release/
         fi
-     done | uniq
+        FILE=$(wget -qO - ${URL} | grep server-amd64 | grep -o ubuntu.*.iso | egrep -v ${EXCLUDE_LIST} | grep ">" | cut -d ">" -f2 | sort -u)
+        FILE=$(echo ${FILE} | tr "\n" " " | tr "\r" " ")
+        if [[ ! -z ${FILE} ]]; then
+            echo ${TITLE}
+            for iso in ${FILE}; do
+                ver=$(echo ${iso} | cut -d- -f2)
+                if [ ! -e ${WORKFILE} ] || ! grep -q "${ver} " ${WORKFILE}; then
+                    echo "${COUNTER} ${ver} ${URL} ${iso} \"${CODE}\"" >> ${WORKFILE}
+                    ((COUNTER++))
+                fi
+            done
+        fi
+    done | uniq
 fi
-
+exit 0
 ubver=1
 
 download_file=$(grep -w ^$ubver ${WORKFILE} | awk '{print $4}')           # filename of the iso to be downloaded
