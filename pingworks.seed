@@ -99,10 +99,10 @@ d-i partman-auto/expert_recipe string         \
          $primary{ }                          \
          method{ format } format{ }           \
          use_filesystem{ } filesystem{ ext4 } \
-         mountpoint{} .                       \
-      1024 1026 200% linux-swap               \
-         $primary{ }                          \
-         method{ swap } format{ } .
+         mountpoint{} .
+#      1024 1026 200% linux-swap               \
+#         $primary{ }                          \
+#         method{ swap } format{ } .
 d-i partman-basicfilesystems/no_mount_point boolean true
 d-i partman-basicfilesystems/no_mount_point yes
 
