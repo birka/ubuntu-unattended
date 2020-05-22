@@ -47,10 +47,10 @@ APT::Periodic::Unattended-Upgrade "1";
 EOF
 
 # remove myself to prevent any unintended changes at a later stage
-# rm $0
+rm $0
 
 # finish
 echo " DONE; rebooting ... "
 
 # reboot
-#reboot
+reboot
