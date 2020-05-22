@@ -9,6 +9,9 @@ if [ "$(id -u)" != "0" ]; then
    echo
    exit 1
 fi
+# Disabling swap
+swapoff -a
+sed -i '/swapfile / s/^/#/' /etc/fstab
 
 # print status message
 echo " preparing your server; this may take a few minutes ..."
@@ -35,11 +38,19 @@ apt-get -y upgrade
 apt-get -y autoremove
 apt-get -y purge
 
+apt-get install -y unattended-upgrades
+cat <<EOF > /etc/apt/apt.conf.d/20auto-upgrades
+APT::Periodic::Update-Package-Lists "1";
+APT::Periodic::Download-Upgradeable-Packages "1";
+APT::Periodic::AutocleanInterval "7";
+APT::Periodic::Unattended-Upgrade "1";
+EOF
+
 # remove myself to prevent any unintended changes at a later stage
-rm $0
+# rm $0
 
 # finish
 echo " DONE; rebooting ... "
 
 # reboot
-reboot
+#reboot
