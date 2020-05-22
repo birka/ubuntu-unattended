@@ -75,8 +75,9 @@ case "$(lsb_release -rs)" in
     *) ub1604="" ;;
 esac
 
-download_file="ubuntu-18.04-server-amd64.iso"
-new_iso_name="ubuntu-18.04-server-amd64-unattended.iso"
+download_location="http://cdimages.ubuntu.com/ubuntu/releases/bionic/release/"
+download_file="ubuntu-18.04.4-server-amd64.iso"
+new_iso_name="ubuntu-18.04.4-server-amd64-unattended.iso"
 username="root"
 timezone="Europe/Berlin"
 pwhash='$6$FHn1fCc0$qCp.HOa/LKayMTydkE6bbzYj5XEz40rQyJqBsJkq8lFYX4JsrUsuYWbEaPG8NcPGMR.KlbeD4iJHrUX6Hu4M30'
