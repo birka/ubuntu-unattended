@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-hostname="node01"
+hostname="node02"
 domainname="k8s.la.pingworks.net"
 ipv4_address="192.168.22.101"
 ipv4_network="255.255.255.0"
