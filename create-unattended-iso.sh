@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
-hostname="node02"
+hostname="node05"
 domainname="k8s.la.pingworks.net"
-ipv4_address="192.168.22.102"
+ipv4_address="192.168.22.105"
 ipv4_network="255.255.255.0"
-ipv4_gateway="192.168.22.2"
-dns_servers="192.168.22.2"
+ipv4_gateway="192.168.22.1"
+dns_servers="192.168.22.1"
 
 ubuntu_version="18.04.4"
 # ubuntu_version="20.04"
